@@ -1,274 +1,149 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cash Exprés - Plataforma</title>
-    <style>
-        body {
-<img src="img" alt= img.PNG
-            fontfamily: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        .container {
-            width: 90%;
-            max-width: 400px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 100px;
-        }
-        h1 {
-            font-size: 24px;
-            text-align: center;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        p {
-            text-align: center;
-        }
-        /* Menú */
-        .menu {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            display: none;
-            background-color: #28a745;
-            width: 200px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .menu ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .menu ul li {
-            padding: 10px;
-            background-color: #28a745;
-            margin-bottom: 5px;
-            cursor: pointer;
-            color: white;
-            border-radius: 5px;
-        }
-        .menu ul li:hover {
-            background-color: #218838;
-        }
-        /* Menú desplegable */
-        .menu-icon {
-            margin-top: 10px;
-            cursor: pointer;
-        }
-        .menu-icon img {
-            width: 30px;
-            height: 30px;
-        }
-        /* Estilo para la pantalla de bienvenida */
-        .background {
-            background-color: #87CEEB;
-            height: 100vh;
-        }
-        #welcome-screen {
-            text-align: center;
-            padding-top: 150px;
-        }
-        #welcome-screen h1 {
-            font-size: 36px;
-            color: #fff;
-        }
-        .container a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .user-info {
-            display: none;
-            position: absolute;
-            top: 100px;
-            left: 70px;
-            background-color: white;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .user-info p {
-            margin: 5px 0;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ProfitLink - Panel Principal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ff7e5f, #feb47b);
+      color: white;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px 20px;
+    }
+
+    .menu-icon {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .welcome-message {
+      font-size: 20px;
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .vip-section {
+      text-align: right;
+    }
+
+    .vip-box {
+      background-color: #222;
+      padding: 5px 10px;
+      border-radius: 8px;
+      display: inline-block;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .earnings-bar {
+      height: 20px;
+      background-color: #333;
+      border-radius: 10px;
+      margin-top: 5px;
+      position: relative;
+    }
+
+    .earnings-fill {
+      height: 100%;
+      background-color: limegreen;
+      border-radius: 10px;
+      width: 0%;
+      transition: width 1s ease-in-out;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -200px;
+      width: 200px;
+      height: 100%;
+      background-color: #222;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+      transition: left 0.3s ease;
+      z-index: 100;
+    }
+
+    .sidebar.show {
+      left: 0;
+    }
+
+    .sidebar a {
+      display: block;
+      margin: 10px 0;
+      color: white;
+      text-decoration: none;
+    }
+
+  </style>
 </head>
-<body>
+<body onclick="closeSidebar()">
+  <div class="sidebar" id="sidebar">
+    <a href="#">Perfil</a>
+    <a href="#">Inversiones</a>
+    <a href="#">Referidos</a>
+    <a href="#">Cerrar sesión</a>
+  </div>
 
-    <!-- Inicio de sesión -->
-    <div class="container" id="login-screen">
-        <h1>Inicio de Sesión</h1>
-        <input type="text" id="username" placeholder="Usuario" />
-        <input type="password" id="password" placeholder="Contraseña" />
-        <button onclick="login()">Iniciar Sesión</button>
-        <p><a href="javascript:void(0);" onclick="showRegister()">¿No tienes cuenta? Regístrate</a></p>
-        <p><a href="javascript:void(0);" onclick="showForgotPassword()">¿Olvidaste tu contraseña?</a></p>
+  <div class="header">
+    <div class="menu-icon" onclick="toggleSidebar(event)">☰</div>
+    <div class="welcome-message" id="welcome-message">Bienvenido, Usuario</div>
+    <div class="vip-section">
+      <div class="vip-box" id="vip-box">Nivel VIP: VIP1</div>
+      <div class="earnings-bar">
+        <div class="earnings-fill" id="earnings-fill"></div>
+      </div>
     </div>
+  </div>
 
-    <!-- Registro -->
-    <div class="container" id="register-screen" style="display:none;">
-        <h1>Registro</h1>
-        <input type="email" id="register-email" placeholder="Correo Electrónico" />
-        <input type="text" id="register-username" placeholder="Usuario" />
-        <input type="password" id="register-password" placeholder="Contraseña" />
-        <button onclick="register()">Registrarse</button>
-        <p><a href="javascript:void(0);" onclick="showLogin()">¿Ya tienes cuenta? Inicia sesión</a></p>
-    </div>
+  <script>
+    // Simula obtener el nombre del usuario desde el login
+    const username = localStorage.getItem('username') || 'Usuario';
+    document.getElementById("welcome-message").textContent = `Bienvenido, ${username}`;
 
-    <!-- Recuperación de Contraseña -->
-    <div class="container" id="forgot-password-screen" style="display:none;">
-        <h1>Recuperar Contraseña</h1>
-        <input type="email" id="forgot-email" placeholder="Correo Electrónico" />
-        <button onclick="sendRecoveryLink()">Enviar enlace de recuperación</button>
-        <p><a href="javascript:void(0);" onclick="showLogin()">Volver al inicio de sesión</a></p>
-    </div>
+    // Sidebar
+    function toggleSidebar(event) {
+      event.stopPropagation();
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("show");
+    }
 
-    <!-- Pantalla Principal (después de loguearse) -->
-    <div class="background" id="welcome-screen" style="display:none;">
-        <!-- Menú desplegable -->
-        <div class="menu-icon" onclick="toggleMenu()">
-            <span style="font-size: 30px;">&#9776; Menú</span>
-        </div>
-        <div class="menu" id="menu">
-            <ul>
-                <li onclick="showUserInfo()">Mi Información</li>
-                <li>Perfil</li>
-                <li>Depósitos</li>
-                <li>Retiros</li>
-                <li>Referidos</li>
-                <li>Términos y Condiciones</li>
-                <li onclick="logout()">Cerrar sesión</li>
-            </ul>
-        </div>
+    function closeSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.remove("show");
+    }
 
-        <h1>Bienvenido, <span id="user-name">Usuario</span></h1>
-        <div class="menu-icon">
-            <span style="font-size: 40px;">👤</span>
-        </div>
-        
-        <!-- Información del Usuario -->
-        <div class="user-info" id="user-info">
-            <p><strong>Nombre:</strong> <span id="user-full-name">Usuario</span></p>
-            <p><strong>Fecha de Registro:</strong> <span id="user-registration-date">01/01/2023</span></p>
-            <button onclick="hideUserInfo()">Cerrar</button>
-        </div>
-    </div>
+    // Nivel VIP (simulado según monto)
+    const recarga = parseInt(localStorage.getItem('recarga')) || 100; // Monto simulado
+    const vipBox = document.getElementById("vip-box");
 
-    <script>
-        // Variables
-        let currentUser = null;
-        let registrationDate = "01/01/2023"; // Fecha de registro simulada
+    let vipLevel = "VIP1";
+    if (recarga >= 1000) vipLevel = "VIP5";
+    else if (recarga >= 500) vipLevel = "VIP4";
+    else if (recarga >= 300) vipLevel = "VIP3";
+    else if (recarga >= 150) vipLevel = "VIP2";
 
-        // Función para mostrar la pantalla de login
-        function showLogin() {
-            document.getElementById("login-screen").style.display = "block";
-            document.getElementById("register-screen").style.display = "none";
-            document.getElementById("forgot-password-screen").style.display = "none";
-            document.getElementById("welcome-screen").style.display = "none";
-        }
+    vipBox.textContent = `Nivel VIP: ${vipLevel}`;
 
-        // Función para mostrar la pantalla de registro
-        function showRegister() {
-            document.getElementById("login-screen").style.display = "none";
-            document.getElementById("register-screen").style.display = "block";
-            document.getElementById("forgot-password-screen").style.display = "none";
-        }
+    // Barra de ganancias en tiempo real (simulada)
+    let earnings = 0;
+    function updateEarnings() {
+      earnings += Math.random() * 5; // Simula ganancia
+      const percent = Math.min((earnings / 100) * 100, 100); // % relativo a 100
+      document.getElementById("earnings-fill").style.width = `${percent}%`;
+    }
 
-        // Función para mostrar la pantalla de recuperación de contraseña
-        function showForgotPassword() {
-            document.getElementById("login-screen").style.display = "none";
-            document.getElementById("register-screen").style.display = "none";
-            document.getElementById("forgot-password-screen").style.display = "block";
-        }
-
-        // Función para loguearse
-        function login() {
-            const username = document.getElementById("username").value;
-            const password = document.getElementById("password").value;
-
-            if (username === "Brian95s" && password === "Demian31") {
-                currentUser = username;
-                showWelcomeScreen();
-            } else {
-                alert("Usuario o contraseña incorrectos");
-            }
-        }
-
-        // Función para registrar
-        function register() {
-            const email = document.getElementById("register-email").value;
-            const username = document.getElementById("register-username").value;
-            const password = document.getElementById("register-password").value;
-
-            // Lógica de registro aquí (simulada)
-            alert("Registro exitoso. Ahora puedes iniciar sesión.");
-            showLogin();
-        }
-
-        // Función para enviar el enlace de recuperación de contraseña
-        function sendRecoveryLink() {
-            const email = document.getElementById("forgot-email").value;
-            alert("Te hemos enviado un enlace de recuperación a " + email);
-            showLogin();
-        }
-
-        // Función para mostrar la pantalla de bienvenida
-        function showWelcomeScreen() {
-            document.getElementById("login-screen").style.display = "none";
-            document.getElementById("register-screen").style.display = "none";
-            document.getElementById("forgot-password-screen").style.display = "none";
-            document.getElementById("welcome-screen").style.display = "block";
-            document.getElementById("user-name").textContent = currentUser;
-        }
-
-        // Función para mostrar la información del usuario
-        function showUserInfo() {
-            document.getElementById("user-info").style.display = "block";
-            document.getElementById("user-full-name").textContent = currentUser;
-            document.getElementById("user-registration-date").textContent = registrationDate;
-        }
-
-        // Función para ocultar la información del usuario
-        function hideUserInfo() {
-            document.getElementById("user-info").style.display = "none";
-        }
-
-        // Función para mostrar u ocultar el menú
-        function toggleMenu() {
-            const menu = document.getElementById("menu");
-            if (menu.style.display === "block") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "block";
-            }
-        }
-
-        // Función para cerrar sesión
-        function logout() {
-            currentUser = null;
-            showLogin();
-        }
-    </script>
+    setInterval(updateEarnings, 60000); // Cada minuto
+    updateEarnings(); // Inicial
+  </script>
 </body>
 </html>
